@@ -22,7 +22,7 @@ std::map<std::string, bool> used;
 std::map<std::string, edge> edges;
 std::map<std::string, std::vector<std::string> > g;
 
-void go_by_ok(cstr& cur_ver, cstr& prev_edge = "-1") {
+void go_to_profitable(cstr& cur_ver, cstr& prev_edge = "-1") {
     used[cur_ver] = true;
 
     std::cout << "LOOK" << std::endl;
@@ -39,7 +39,7 @@ void go_by_ok(cstr& cur_ver, cstr& prev_edge = "-1") {
     for (cstr& edge_name : g[cur_ver]) {
         const edge& e = edges[edge_name];
         cstr& next_ver = e.another_ver(cur_ver);
-        double pred_add = cost[next_ver] - e.is_broken * day_cost;
+        double pred_add = cost[next_ver] - e.is_broken *  day_cost;
         if (used[next_ver] || pred_add < 0) continue;
 
         if (e.is_broken) {
@@ -49,7 +49,7 @@ void go_by_ok(cstr& cur_ver, cstr& prev_edge = "-1") {
         std::cout << "MOVE " << edge_name << std::endl;
         std::cin >> res;
 
-        go_by_ok(next_ver, edge_name);
+        go_to_profitable(next_ver, edge_name);
 
         std::cout << "MOVE " << edge_name << std::endl;
         std::cin >> res;
@@ -84,7 +84,7 @@ int main() {
         std::cin >> input;
     }
 
-    go_by_ok(start);
+    go_to_profitable(start);
     std::cout << "END" << std::endl;
 }
 
