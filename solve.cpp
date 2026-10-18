@@ -39,7 +39,7 @@ void go_by_ok(cstr& cur_ver, cstr& prev_edge = "-1") {
     for (cstr& edge_name : g[cur_ver]) {
         const edge& e = edges[edge_name];
         cstr& next_ver = e.another_ver(cur_ver);
-        double pred_add = cost[next_ver] - (1 - e.p) * day_cost;
+        double pred_add = cost[next_ver] - e.is_broken * day_cost;
         if (used[next_ver] || pred_add < 0) continue;
 
         if (e.is_broken) {
